@@ -1,0 +1,11 @@
+.like-button {
+    background-color: #3f3f3f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 1em;
+    height: 1em;
+    padding: 2px;
+    font-size: x-large;
+}

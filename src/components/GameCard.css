@@ -1,0 +1,77 @@
+.game-card {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 350px;
+  overflow: hidden;
+  text-align: left;
+  background-color: #1f1f1f;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  color: white;
+}
+
+.game-card-img {
+  width: 100%;
+  height: 100%;
+  flex: 8;
+  object-fit: cover;
+  display: block;
+}
+
+.game-card-content {
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.game-card-title {
+  /*border: 1px solid red;*/
+  flex: 1;
+  margin: 0px;
+}
+
+.game-card-desc {
+  /*border: 1px solid blue;*/
+  flex: 3;
+  margin: 0px;
+}
+
+.game-card-price {
+  /*border: 1px solid white;*/
+  flex: 1;
+  margin: 0px;
+  text-align: left;
+}
+
+.game-card-tag-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.game-card-tag {
+  align-self: flex-start;
+  /* OR use baseline if you want them aligned to the text line */
+  padding: 3px 6px; /* Optional: smaller padding for better size */
+  background-color: #3f3f3f;
+  border-radius: 3px; /* Optional: for a pill-like tag look */
+  font-size: 12px;    /* Optional: tag-style sizing */
+  margin-left: 0;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.game-card-tag:hover {
+  background-color: #4f4f4f;
+  filter: drop-shadow(0 0 2px #4f4f4f);
+}
+
+.game-card-price-like-container {
+  flex: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
