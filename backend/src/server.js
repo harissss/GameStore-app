@@ -8,6 +8,7 @@ dotenv.config();
 
 // Create express js app
 const app = express();
+app.use(express.json());
 const PORT = process.env.PORT; 
 
 // Connect to the mongoDB database

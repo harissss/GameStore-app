@@ -13,6 +13,9 @@ export async function getAllGames(req, res) {
     // - Set status to 200 (request succeeded)
     // - Handel potential errors, and send relevant error codes
 
+
+    //res.status(200).json({message:"Games sent"});
+
     try {
         const games = await Game.find();
         res.status(200).json(games);
@@ -21,9 +24,6 @@ export async function getAllGames(req, res) {
         console.error("Error in getAllGames controller:", err);
         res.status(500).json({message:"Could not fetch games from the database."});
     }
-    
-
-    res.status(200).json({message:"Games sent"});
 }
 
 // Function to show the store page of a specific game, when the user clicks on the game. 
@@ -63,15 +63,40 @@ export async function searchGames(req, res) {
     let terms = req.query.terms;
     let genres = req.query.genres;
 
+    res.status(200).json({message:`Games matching search query: _${terms}_ with genres: _${genres}_ sent`});
+
     try {
-        const matchingGames = await Game.find(/* CONSTRUCT THE QUERY FILTER */);
+        const matchingGames = await Game.find(/* CONSTRUCT THE QUERY FILTER */
+            { title: 'test', genre: 'action' }
+        );
         // HANDLE 404 NOT FOUND STUFF?
         res.status(200).json(matchingGames);
     } catch (err) {
         //status code 500: internal server error
         console.error("Error in searchGames controller:", err);
         res.status(500).json({message:"Could not fetch games from the database."});
-    }
+    }    
+}
 
-    res.status(200).json({message:`Games matching search query: _${terms}_ with genres: _${genres}_ sent`});
+export async function createGame(req, res) {
+    try {
+        const game = new Game({
+            title: req.body.title,
+            description: req.body.description,
+            tags: req.body.tags,
+            price: req.body.price,
+            release_date: req.body.release_date
+        }); // can just be const game = Game.create(req.body);
+
+        const savedGame = await game.save();
+
+        res.status(201).json(savedGame);
+
+    } catch (err) {
+        console.error("Error in createGame controller:", err);
+
+        res.status(500).json({
+            message: "Could not create game."
+        });
+    }
 }
