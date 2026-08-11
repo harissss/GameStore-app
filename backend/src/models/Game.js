@@ -13,7 +13,7 @@ const gameSchema = new mongoose.Schema({
         required: true,
     },
     tags: {
-        type: [String], 
+        type: [String], //important note: all tags should be in lower-case, since they are handled as such throughout the code
         required: true,
     },
     price: {

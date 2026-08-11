@@ -63,12 +63,24 @@ export async function searchGames(req, res) {
     let terms = req.query.terms;
     let genres = req.query.genres;
 
-    res.status(200).json({message:`Games matching search query: _${terms}_ with genres: _${genres}_ sent`});
+    //res.status(200).json({message:`Games matching search query: _${terms}_ with genres: _${genres}_ sent`});
 
     try {
-        const matchingGames = await Game.find(/* CONSTRUCT THE QUERY FILTER */
-            { title: 'test', genre: 'action' }
-        );
+        const filter = {}
+
+        if (terms) {
+            filter.title = {$regex: terms, $options: "i"}
+        }
+
+        //const genres = genres.map(tag => {tag.toLowerCase()});
+
+        if (genres) {
+            let lCaseGenres = genres.split(" ").map(tag => tag.toLowerCase());
+            filter.tags = {$all: lCaseGenres}
+        }
+
+        const matchingGames = await Game.find(filter);
+
         // HANDLE 404 NOT FOUND STUFF?
         res.status(200).json(matchingGames);
     } catch (err) {
@@ -83,7 +95,7 @@ export async function createGame(req, res) {
         const game = new Game({
             title: req.body.title,
             description: req.body.description,
-            tags: req.body.tags,
+            tags: req.body.tags.map(tag => tag.toLowerCase()),
             price: req.body.price,
             release_date: req.body.release_date
         }); // can just be const game = Game.create(req.body);
