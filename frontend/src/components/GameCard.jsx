@@ -14,7 +14,7 @@ function GameCard({ GameObj }) {
         <p className="game-card-desc">{description}</p>
         <div className='game-card-tag-container'> {tags.map(tag => <div className='game-card-tag'> {tag} </div>)} </div>
         <div className='game-card-price-like-container'> 
-          <p className="game-card-price">{price}</p>
+          <p className="game-card-price">{price + "$"}</p>
           <LikeButton />
         </div>
       </div>

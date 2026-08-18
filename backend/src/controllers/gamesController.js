@@ -92,13 +92,19 @@ export async function searchGames(req, res) {
 
 export async function createGame(req, res) {
     try {
+        const gameData = req.body;
+        
+        if (!gameData.title || !gameData.description || !gameData.tags || !gameData.price || !gameData.release_date) {
+            res.status(400).json({success : false, message : "Please provide all data."});
+        }
+        
         const game = new Game({
-            title: req.body.title,
-            description: req.body.description,
-            tags: req.body.tags.map(tag => tag.toLowerCase()),
-            price: req.body.price,
-            release_date: req.body.release_date
-        }); // can just be const game = Game.create(req.body);
+            title: gameData.title,
+            description: gameData.description,
+            tags: gameData.tags.map(tag => tag.toLowerCase()),
+            price: gameData.price,
+            release_date: gameData.release_date
+        }); // can just be const game = Game.create(gameData);
 
         const savedGame = await game.save();
 

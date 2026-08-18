@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import GameCard from './components/GameCard'
-import SearchBar from './components/SearchBar'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+import GameCard from './components/GameCard';
+import SearchBar from './components/SearchBar';
+import { getGames } from './api/Games';
+import { useEffect } from 'react';
 
 // man bruger classes eller functions for components. Normalt bruges function-based components. 
 
 function App() {
-  //const [count, setCount] = useState(0)
+  const [games, setGames] = useState([]);
 
-  const games = [
+  /*const games = [
     {
       id: 1,
       title: "Cyberpunk 2077",
@@ -35,7 +37,19 @@ function App() {
       description: "Defeat the opposing team in a 5v5 competitive first-person shooter.",
       price: "$4.99"
     }
-  ];
+  ];*/
+
+  useEffect(() => {
+    async function fetchGames() {
+      try {
+        const res = await getGames();
+        setGames(res); 
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchGames();
+  }, []);
 
   return (
     <>
